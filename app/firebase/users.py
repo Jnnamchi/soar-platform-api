@@ -2,7 +2,6 @@
 import firebase_admin
 
 def getAllUsersInfoFromIDs(auth, userIds):
-	print(userIds)
 	usersInfo = []
 	for userId in userIds:
 		user = auth.get_user(userId)

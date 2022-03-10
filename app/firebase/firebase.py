@@ -8,6 +8,7 @@ from . import modules
 from . import users
 
 # Use a service account
+# cred = credentials.Certificate('/home/jnnamchi/soar-platform-api/app/firebase/credentials.json')
 cred = credentials.Certificate('/Users/jnnamchi/go/src/github.com/Jnnamchi/soar-platform-api/app/firebase/credentials.json')
 firebase_admin.initialize_app(cred)
 

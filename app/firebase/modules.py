@@ -5,7 +5,6 @@ def getAllModules(db):
 	finalModules = []
 	for module in modules:
 		moduleDict = module.to_dict()
-		moduleDict = addAnswerKeysToModule(moduleDict)
 		moduleDict["uuid"] = module.id
 		finalModules.append(moduleDict)
 

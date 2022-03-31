@@ -48,3 +48,15 @@ def addParticipantsToCompany(db, companyUuid, participantIds):
 	companyDict["uuid"] = company.id
 	db.collection(u'companies').document(companyUuid).update(companyDict)
 	return companyDict
+
+def updateUserSurveyAnswer(db, companyUuid, moduleUuid, userUuid, answers):
+	company = db.collection(u'companies').document(companyUuid).get()
+	companyDict = company.to_dict()
+	if moduleUuid not in companyDict["moduleAnswers"]:
+		companyDict["moduleAnswers"][moduleUuid] = {
+			userUuid: answers
+		}
+	else:
+		companyDict["moduleAnswers"][moduleUuid][userUuid] = answers
+	db.collection(u'companies').document(companyUuid).update(companyDict)
+	return companyDict

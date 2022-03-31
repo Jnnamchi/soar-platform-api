@@ -50,8 +50,10 @@ def updateCompanyParticipants(addParticipantsInstructions):
 		"users": usersInfo
 	}
 
-
-
+def updateUserSurveyAnswer(updateData):
+	return {
+		"company": companies.updateUserSurveyAnswer(db, updateData["companyUuid"], updateData["moduleUuid"], updateData["uuid"], updateData["answers"])
+	}
 
 
 

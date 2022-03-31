@@ -42,3 +42,7 @@ def addModuleToCompany():
 @app.route('/updateCompanyParticipants', methods=['POST'])
 def updateCompanyParticipants():
 	return firebase.updateCompanyParticipants(request.get_json())
+
+@app.route('/updateUserSurveyAnswer', methods=['POST'])
+def updateUserSurveyAnswer():
+	return firebase.updateUserSurveyAnswer(request.get_json())

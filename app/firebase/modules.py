@@ -1,4 +1,3 @@
-
 def getAllModules(db):
 	modules = db.collection(u'modules').get()
 

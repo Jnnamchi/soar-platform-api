@@ -10,26 +10,26 @@ growthModuleSurvey = {
 		"name": "Base Business Evolution",
 		"questions": [
 			{
-			"name": "Growing by taking advantage of market conditions & momentum - before pursuing any significant new strategic initiatives.",
-			"type": "matrix",
-			"columns": [
-				"Significant OPPORTUNITY", "Modest OPPORTUNITY", "Significant NECESSITY", "Modest NECESSITY", "LITTLE OR NO OPPORTUNITY OR NECESSITY", "Don't Know", "NOT APPLICABLE OR RELEVANT"
-			],
-			"rows": [
-				{
-				"id": "Growth-BBE-1",
-				"question": "Achieving significant sales growth in the next few years by riding the wave of growth in market demand",
-				"answer": "",
-				},
-				{
-				"id": "Growth-BBE-2",
-				"question": "Achieving significant sales growth in the next few years - because market forces will allow us to raise prices on some or all products/services and/or customers",
-				"answer": "",
-				},
-			],
-			"answer": [],
-			"choices": [],
-			"items": []
+				"name": "Growing by taking advantage of market conditions & momentum - before pursuing any significant new strategic initiatives.",
+				"type": "matrix",
+				"columns": [
+					"Significant OPPORTUNITY", "Modest OPPORTUNITY", "Significant NECESSITY", "Modest NECESSITY", "LITTLE OR NO OPPORTUNITY OR NECESSITY", "Don't Know", "NOT APPLICABLE OR RELEVANT"
+				],
+				"rows": [
+					{
+						"id": "Growth-BBE-1",
+						"question": "Achieving significant sales growth in the next few years by riding the wave of growth in market demand",
+						"answer": "",
+					},
+					{
+						"id": "Growth-BBE-2",
+						"question": "Achieving significant sales growth in the next few years - because market forces will allow us to raise prices on some or all products/services and/or customers",
+						"answer": "",
+					},
+				],
+				"answer": [],
+				"choices": [],
+				"items": []
 			}
 		]
 		},

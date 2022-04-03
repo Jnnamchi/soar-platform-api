@@ -46,3 +46,7 @@ def updateCompanyParticipants():
 @app.route('/updateUserSurveyAnswer', methods=['POST'])
 def updateUserSurveyAnswer():
 	return firebase.updateUserSurveyAnswer(request.get_json())
+
+@app.route('/createNextWorkshop', methods=['POST'])
+def createNextWorkshop():
+	return firebase.createNextWorkshop(request.get_json())

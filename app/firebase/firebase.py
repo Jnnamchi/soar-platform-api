@@ -6,6 +6,7 @@ from firebase_admin import auth
 from . import companies
 from . import modules
 from . import users
+from . import workshopManager
 
 # Use a service account
 # cred = credentials.Certificate('/home/jnnamchi/soar-platform-api/app/firebase/credentials.json')
@@ -55,9 +56,10 @@ def updateUserSurveyAnswer(updateData):
 		"company": companies.updateUserSurveyAnswer(db, updateData["companyUuid"], updateData["moduleUuid"], updateData["uuid"], updateData["answers"])
 	}
 
-
-
-
+def createNextWorkshop(data):
+	updatedCompany = workshopManager.addNextWorkshopToCompany(data["company"], data["moduleId"])
+	companies.updateCompanyData(db, updatedCompany)
+	return updatedCompany
 
 # For random tests on startup
 # modules2 = db.collection(u'companies').where("participants", "array_contains", "vYXqTtUPwIfYtQnMu1JazQLtxxK2").get()

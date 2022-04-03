@@ -1,18 +1,23 @@
+from ..algos import testGetter
+
+def getModuleAnalysis(companyDict):
+	companyDict["answerAnalysis"] = {}
+	for answerId in companyDict["moduleAnswers"]:
+		companyDict["answerAnalysis"][answerId] = testGetter.getSurveyResultsAnalysis(companyDict["moduleAnswers"][answerId])
 
 def getUserCompanies(db, userId):
 	companies = []
+	addedCompanies = set()
 
 	companiesDB = db.collection(u'companies').where("admins", "array_contains", userId).get()
-	for company in companiesDB:
-		companyDict = company.to_dict()
-		companyDict["uuid"] = company.id
-		companies.append(companyDict)
-
 	companiesParticipantsDB = db.collection(u'companies').where("participants", "array_contains", userId).get()
-	for company in companiesParticipantsDB:
-		companyDict = company.to_dict()
-		companyDict["uuid"] = company.id
-		companies.append(companyDict)
+	for company in companiesDB + companiesParticipantsDB:
+		if company.id not in addedCompanies:
+			companyDict = company.to_dict()
+			companyDict["uuid"] = company.id
+			getModuleAnalysis(companyDict)
+			companies.append(companyDict)
+			addedCompanies.add(company.id)
 
 	return companies
 
@@ -60,3 +65,8 @@ def updateUserSurveyAnswer(db, companyUuid, moduleUuid, userUuid, answers):
 		companyDict["moduleAnswers"][moduleUuid][userUuid] = answers
 	db.collection(u'companies').document(companyUuid).update(companyDict)
 	return companyDict
+
+def updateCompanyData(db, companyData):
+	companyUuid = companyData["uuid"]
+	db.collection(u'companies').document(companyUuid).update(companyData)
+	return companyData

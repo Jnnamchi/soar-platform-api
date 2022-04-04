@@ -61,6 +61,9 @@ def createNextWorkshop(data):
 	companies.updateCompanyData(db, updatedCompany)
 	return updatedCompany
 
+def updateUserWorkshopAnswers(data):
+	return companies.updateUserWorkshopAnswers(db, data["userId"], data["companyUuid"], data["moduleUuid"], data["answers"])
+
 # For random tests on startup
 # modules2 = db.collection(u'companies').where("participants", "array_contains", "vYXqTtUPwIfYtQnMu1JazQLtxxK2").get()
 # finalModules = []

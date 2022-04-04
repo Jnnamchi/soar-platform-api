@@ -1,4 +1,5 @@
 from ..algos import testGetter
+from . import workshopManager
 
 def getModuleAnalysis(companyDict):
 	companyDict["answerAnalysis"] = {}
@@ -16,6 +17,7 @@ def getUserCompanies(db, userId):
 			companyDict = company.to_dict()
 			companyDict["uuid"] = company.id
 			getModuleAnalysis(companyDict)
+			workshopManager.addWorkshopAnalysis(companyDict)
 			companies.append(companyDict)
 			addedCompanies.add(company.id)
 
@@ -70,3 +72,14 @@ def updateCompanyData(db, companyData):
 	companyUuid = companyData["uuid"]
 	db.collection(u'companies').document(companyUuid).update(companyData)
 	return companyData
+
+def updateUserWorkshopAnswers(db, userId, companyUuid, moduleUuid, answers):
+	company = db.collection(u'companies').document(companyUuid).get()
+	companyDict = company.to_dict()
+	if moduleUuid in companyDict["virtualWorkshops"]:
+		maxKey = 1
+		for key in companyDict["virtualWorkshops"][moduleUuid]:
+			if int(key) > maxKey:
+				maxKey = int(key)
+			companyDict["virtualWorkshops"][moduleUuid][str(maxKey)]["moduleAnswers"][userId] = answers
+	return updateCompanyData(db, companyDict)

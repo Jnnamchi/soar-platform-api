@@ -50,3 +50,7 @@ def updateUserSurveyAnswer():
 @app.route('/createNextWorkshop', methods=['POST'])
 def createNextWorkshop():
 	return firebase.createNextWorkshop(request.get_json())
+
+@app.route('/updateUserWorkshopAnswers', methods=['POST'])
+def updateUserWorkshopAnswers():
+	return firebase.updateUserWorkshopAnswers(request.get_json())

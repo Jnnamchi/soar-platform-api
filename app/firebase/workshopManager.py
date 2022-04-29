@@ -25,6 +25,10 @@ points = {
 workshopRounds = {
 	"round-1": {
 		"name": "Virtual Workshop #1",
+		"description": "Size of Opportunity",
+		"takeAnswersFrom": "answerAnalysis",
+		"sortKeyName": "opportunityScore",
+		"takeTopN": 15,
 		"questions": [{
 			"name": "Opporutnity to grow annual Sales Revenue in 2-3 years (measured as a % of current annual sales)",
 			"type": "matrix",
@@ -54,6 +58,11 @@ workshopRounds = {
 	},
 	"round-2": {
 		"name": "Virtual Workshop #2",
+		"description": "Opportunity Implementation Challenges",
+		"takeAnswersFrom": "virtualWorkshops",
+		"takeVirtualWorkshop": "1",
+		"sortKeyName": "score",
+		"takeTopN": 15,
 		"questions": [{
 			"name": "Degree of Difficulty, Complexity, Learning Curve to implement",
 			"type": "matrix",
@@ -76,6 +85,7 @@ workshopRounds = {
 		},
 		# "next-round": "round-2"
 	}
+	# TODO: Round 3 with necessities only
 }
 
 def createNewQuestion():
@@ -121,16 +131,29 @@ def createVirtualWorkshop(workshopRoundName, topAnswers):
 		"hasNextWorkshop": "next-round" in workshopRound
 	}
 
+def getAnswersUsedForNextWorkshop (companyData, moduleId, nextWorkshopRound):
+	answers = []
+	takeAnswersFrom = workshopRounds[nextWorkshopRound]["takeAnswersFrom"]
+	companyAnswers = companyData[takeAnswersFrom][moduleId]
+	if takeAnswersFrom == "virtualWorkshops":
+		workshopRoundToTake = workshopRounds[nextWorkshopRound]["takeVirtualWorkshop"]
+		companyAnswers = companyAnswers[workshopRoundToTake]["answerAnalysis"]
+	for answerId, answer in companyAnswers.items():
+		if answer["score"] > 0:
+			answers.append({"id": answerId} | answer) # Merge dictionaries
+	topAnswers = sorted(answers, key=lambda answer: answer[workshopRounds[nextWorkshopRound]["sortKeyName"]], reverse=True)
+	return topAnswers[:workshopRounds[nextWorkshopRound]["takeTopN"]]
+
 def addNextWorkshopToCompany(companyData, moduleId):
 
 	if moduleId not in companyData["virtualWorkshops"]:
 		companyData["virtualWorkshops"][moduleId] = {}
-		nextWorkshopRound = 1
 	nextWorkshopRound = len(companyData["virtualWorkshops"][moduleId].keys()) + 1
 	nextWorkshopRoundName = "round-" + str(nextWorkshopRound)
 	# TODO: else when virtualWorkshops already in company data
 	workshopNumber = str(len(companyData["virtualWorkshops"][moduleId].keys()) + 1)
-	companyData["virtualWorkshops"][moduleId][workshopNumber] = createVirtualWorkshop(nextWorkshopRoundName, companyData["topAnswers"])
+	# companyData["virtualWorkshops"][moduleId][workshopNumber] = createVirtualWorkshop(nextWorkshopRoundName, companyData["topAnswers"])
+	companyData["virtualWorkshops"][moduleId][workshopNumber] = createVirtualWorkshop(nextWorkshopRoundName, getAnswersUsedForNextWorkshop(companyData, moduleId, nextWorkshopRoundName))
 
 	return companyData
 

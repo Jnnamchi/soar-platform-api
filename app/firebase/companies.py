@@ -1,10 +1,10 @@
-from ..algos import testGetter
+from ..algos import surveyResultsAnalyzer
 from . import workshopManager
 
 def getModuleAnalysis(companyDict):
 	companyDict["answerAnalysis"] = {}
 	for answerId in companyDict["moduleAnswers"]:
-		companyDict["answerAnalysis"][answerId] = testGetter.getSurveyResultsAnalysis(companyDict["moduleAnswers"][answerId])
+		companyDict["answerAnalysis"][answerId] = surveyResultsAnalyzer.getSurveyResultsAnalysis(companyDict["moduleAnswers"][answerId])
 
 def getUserCompanies(db, userId):
 	companies = []

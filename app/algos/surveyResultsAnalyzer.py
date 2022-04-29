@@ -2,8 +2,11 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 
+HUGE_OPPORTUNITY = 'Huge OPPORTUNITY'
+BIG_OPPORTUNITY = 'Big OPPORTUNITY'
 SIGNIFICANT_OPPORUTNITY = 'Significant OPPORTUNITY'
 MODEST_OPPORTUNITY = 'Modest OPPORTUNITY'
+NECESSITY = "NECESSITY"
 SIGNIFICANT_NECESSITY = 'Significant NECESSITY'
 MODEST_NECESSITY = 'Modest NECESSITY'
 LITTLE_NO_O_N = 'LITTLE OR NO OPPORTUNITY OR NECESSITY'
@@ -11,8 +14,11 @@ DONT_KNOW = "Don't Know"
 NOT_APPLICABLE = 'NOT APPLICABLE OR RELEVANT'
 
 points = {
+	HUGE_OPPORTUNITY: 3,
+	BIG_OPPORTUNITY: 2,
 	SIGNIFICANT_OPPORUTNITY: 3,
-	MODEST_OPPORTUNITY: 2,
+	MODEST_OPPORTUNITY: 1,
+	NECESSITY: 3,
 	SIGNIFICANT_NECESSITY: 3,
 	MODEST_NECESSITY: 2,
 	LITTLE_NO_O_N: 0,
@@ -22,6 +28,18 @@ points = {
 
 def scoreQuestion(answer):
 	if answer in points:
+		return points[answer]
+	return 0
+
+opportunities = (HUGE_OPPORTUNITY, BIG_OPPORTUNITY, SIGNIFICANT_OPPORUTNITY, MODEST_OPPORTUNITY)
+def addOpportunityScore(answer):
+	if answer in opportunities:
+		return points[answer]
+	return 0
+
+necessities = (NECESSITY, SIGNIFICANT_NECESSITY, MODEST_NECESSITY)
+def addNecessityScore(answer):
+	if answer in necessities:
 		return points[answer]
 	return 0
 
@@ -39,11 +57,14 @@ def getSurveyResultsAnalysis(surveyAnswers):
 		for answerId, answer in userAnswers.items():
 			if answerId not in answerTally:
 				answerTally[answerId] = {
-					"score": 0
+					"score": 0,
+					"opportunityScore": 0,
+					"necessityScore": 0
 				}
 				for point in points:
 					answerTally[answerId][point] = 0
 			answerTally[answerId]["score"] += scoreQuestion(answer)
+			answerTally[answerId]["opportunityScore"] += addOpportunityScore(answer)
 			if answer in points:
 				answerTally[answerId][answer] += 1
 	return answerTally

@@ -9,6 +9,10 @@ def getAllModules(db):
 
 	return finalModules
 
+def getModuleById(db, moduleId):
+	module = db.collection(u'modules').document(moduleId).get()
+	return module.to_dict()
+
 def addAnswerKeysToModule(module):
 	for page in module["survey"]["pages"]:
 		for question in page["questions"]:

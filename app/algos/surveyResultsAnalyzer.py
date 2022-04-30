@@ -43,15 +43,7 @@ def addNecessityScore(answer):
 		return points[answer]
 	return 0
 
-# growthModuleUuid = 'weHvXJGF3i5qgNfjFAN1'
-# cred = credentials.Certificate('/Users/jnnamchi/go/src/github.com/Jnnamchi/soar-platform-api/app/firebase/credentials.json')
-# firebase_admin.initialize_app(cred)
-
-# db = firestore.client()
-# uuid = 'ZbtlBnNWl0tsJ3KqzxN6'
-# company = db.collection(u'companies').document(uuid).get().to_dict()
-
-def getSurveyResultsAnalysis(surveyAnswers):
+def getSurveyResultsAnalysis(surveyAnswers, module):
 	answerTally = {}
 	for userId, userAnswers in surveyAnswers.items():
 		for answerId, answer in userAnswers.items():
@@ -65,10 +57,19 @@ def getSurveyResultsAnalysis(surveyAnswers):
 					answerTally[answerId][point] = 0
 			answerTally[answerId]["score"] += scoreQuestion(answer)
 			answerTally[answerId]["opportunityScore"] += addOpportunityScore(answer)
+			answerTally[answerId]["necessityScore"] += addNecessityScore(answer)
+			answerTally[answerId]["questionName"] = getQuestionNameFromId(answerId, module)
 			if answer in points:
 				answerTally[answerId][answer] += 1
 	return answerTally
 
-# for moduleId in company["moduleAnswers"]:
-# 	module = company["moduleAnswers"][moduleId]
-# 	results = getSurveyResultsAnalysis(module)
+def getQuestionNameFromId(questionId, module):
+	for page in module["survey"]["pages"]:
+		for question in page["questions"]:
+			if question["type"] == "matrix":
+				for matrixQ in question["rows"]:
+					if matrixQ["id"] == questionId:
+						return matrixQ["question"]
+			elif question["id"] == questionId:
+				return question["name"]
+	return "Could not find question"

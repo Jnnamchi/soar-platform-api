@@ -1,10 +1,12 @@
 from ..algos import surveyResultsAnalyzer
 from . import workshopManager
+from . import modules
 
-def getModuleAnalysis(companyDict):
+def getModuleAnalysis(companyDict, db):
 	companyDict["answerAnalysis"] = {}
-	for answerId in companyDict["moduleAnswers"]:
-		companyDict["answerAnalysis"][answerId] = surveyResultsAnalyzer.getSurveyResultsAnalysis(companyDict["moduleAnswers"][answerId])
+	for moduleId in companyDict["moduleAnswers"]:
+		module = modules.getModuleById(db, moduleId)
+		companyDict["answerAnalysis"][moduleId] = surveyResultsAnalyzer.getSurveyResultsAnalysis(companyDict["moduleAnswers"][moduleId], module)
 
 def getUserCompanies(db, userId):
 	companies = []
@@ -16,7 +18,7 @@ def getUserCompanies(db, userId):
 		if company.id not in addedCompanies:
 			companyDict = company.to_dict()
 			companyDict["uuid"] = company.id
-			getModuleAnalysis(companyDict)
+			getModuleAnalysis(companyDict, db)
 			workshopManager.addWorkshopAnalysis(companyDict)
 			companies.append(companyDict)
 			addedCompanies.add(company.id)

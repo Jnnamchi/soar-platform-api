@@ -133,7 +133,6 @@ workshopRounds = {
 		},
 		# "next-round": "round-3"
 	}
-	# TODO: Round 3 with necessities only
 }
 
 def createNewQuestion():

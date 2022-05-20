@@ -54,3 +54,7 @@ def createNextWorkshop():
 @app.route('/updateUserWorkshopAnswers', methods=['POST'])
 def updateUserWorkshopAnswers():
 	return firebase.updateUserWorkshopAnswers(request.get_json())
+
+@app.route('/createInPersonWorkshops', methods=['POST'])
+def createInPersonWorkshops():
+	return firebase.createInPersonWorkshops(request.get_json())

@@ -1,3 +1,5 @@
+import copy
+from ..algos import surveyResultsAnalyzer
 
 companyDescription = {
 	"title": "Company Description",
@@ -79,13 +81,13 @@ revenueEnhancementOrCostReductionPotentialFirstYear = {
 }
 revenueEnhancementOrCostReductionPotentialThirdYear = {
 	"title": "Revenue Enhancement Or Cost Reduction Potential",
-	"subtitle": "First Year",
+	"subtitle": "Third Year",
 	"type": "text",
 	"options": []
 }
 revenueEnhancementOrCostReductionPotentialFifthYear = {
 	"title": "Revenue Enhancement Or Cost Reduction Potential",
-	"subtitle": "First Year",
+	"subtitle": "Fifth Year",
 	"type": "text",
 	"options": []
 }
@@ -102,9 +104,9 @@ valueEnhancementPotential = {
 	"options": []
 }
 
-inPersonWorkshops = {
-	"Opportunities In Person Workshop": {
-		"takesAnswersFrom": "round-2",
+inPersonWorkshopSettings = [
+	{	"name": "Opportunities In Person Workshop",
+		"takesAnswersFrom": "2",
 		"columns": [
 			companyDescription,
 			# {
@@ -131,8 +133,9 @@ inPersonWorkshops = {
 			status,
 		]
 	},
-	"Necessities In Person Workshop": {
-		"takesAnswersFrom": "round-2",
+	{
+		"name": "Necessities In Person Workshop",
+		"takesAnswersFrom": "3",
 		"columns": [
 			companyDescription,
 			# {
@@ -154,4 +157,47 @@ inPersonWorkshops = {
 			status,
 		]
 	}
-}
+]
+
+def addModuleInPersonWorkshops (companyData, moduleId, module):
+	# Add the TLK if its not there yet
+	if "inPersonWorkshops" not in companyData:
+		companyData["inPersonWorkshops"] = {}
+	moduleVirtualWorkshops = companyData["virtualWorkshops"][moduleId]
+
+	# Build the in person workshop
+	moduleInPersonWorkshop = []
+	for inPersonWorkshopSetting in inPersonWorkshopSettings:
+		workshopSettings = {
+			"name": inPersonWorkshopSetting["name"],
+			"columns": inPersonWorkshopSetting["columns"],
+			"rows": [],
+		}
+		answers = {}
+		moduleAnswers = moduleVirtualWorkshops[inPersonWorkshopSetting["takesAnswersFrom"]]
+		for answerId, answerDetails in moduleAnswers["answerAnalysis"].items():
+			questionName = surveyResultsAnalyzer.getQuestionNameFromId(answerId, module)
+			workshopSettings["rows"].append({
+				"id": answerId,
+				"questionName": questionName
+			})
+			answers[answerId] = buildAnswerList(inPersonWorkshopSetting)
+		workshopSettings["answers"] = answers
+		moduleInPersonWorkshop.append(workshopSettings)
+
+	# Module ID should not be in the inPersonWorkshops at this point as we are just adding it now
+	companyData["inPersonWorkshops"][moduleId] = moduleInPersonWorkshop
+	return companyData
+
+def buildAnswerList(inPersonWorkshopSetting):
+	answerList = []
+	for column in inPersonWorkshopSetting["columns"]:
+		if column["type"] == "date":
+			answerList.append("Dec 1 2022")
+		elif column["type"] == "dropdown":
+			answerList.append(column["options"][0])
+		elif column["type"] == "text" or column["type"] == "textarea":
+			answerList.append("")
+		else:
+			answerList.append("")
+	return answerList

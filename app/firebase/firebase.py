@@ -7,6 +7,7 @@ from . import companies
 from . import modules
 from . import users
 from . import workshopManager
+from . import inPersonWorkshopManager
 
 # Use a service account
 # cred = credentials.Certificate('/home/jnnamchi/soar-platform-api/app/firebase/credentials.json')
@@ -63,6 +64,12 @@ def createNextWorkshop(data):
 
 def updateUserWorkshopAnswers(data):
 	return companies.updateUserWorkshopAnswers(db, data["userId"], data["companyUuid"], data["moduleUuid"], data["answers"])
+
+def createInPersonWorkshops(data):
+	module = modules.getModuleById(db, data["moduleId"])
+	updatedCompany = inPersonWorkshopManager.addModuleInPersonWorkshops(data["company"], data["moduleId"], module)
+	companies.updateCompanyData(db, updatedCompany)
+	return updatedCompany
 
 # For random tests on startup
 # modules2 = db.collection(u'companies').where("participants", "array_contains", "vYXqTtUPwIfYtQnMu1JazQLtxxK2").get()

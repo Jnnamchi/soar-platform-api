@@ -71,6 +71,12 @@ def createInPersonWorkshops(data):
 	companies.updateCompanyData(db, updatedCompany)
 	return updatedCompany
 
+def saveWorkshopState(data):
+	updatedCompany = companies.getCompanyById(db, data["companyId"])
+	updatedCompany = inPersonWorkshopManager.saveWorkshopState(updatedCompany, data["moduleId"], data["workshops"])
+	companies.updateCompanyData(db, updatedCompany)
+	return updatedCompany
+
 # For random tests on startup
 # modules2 = db.collection(u'companies').where("participants", "array_contains", "vYXqTtUPwIfYtQnMu1JazQLtxxK2").get()
 # finalModules = []

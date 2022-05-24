@@ -25,6 +25,10 @@ def getUserCompanies(db, userId):
 
 	return companies
 
+def getCompanyById(db, companyId):
+	company = db.collection(u'companies').document(companyId).get()
+	return company.to_dict()
+
 def addUserCompany(db, userCompany):
 	del userCompany["uuid"]
 	db.collection(u'companies').add(userCompany)

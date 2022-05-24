@@ -173,16 +173,14 @@ def addModuleInPersonWorkshops (companyData, moduleId, module):
 			"columns": inPersonWorkshopSetting["columns"],
 			"rows": [],
 		}
-		answers = {}
 		moduleAnswers = moduleVirtualWorkshops[inPersonWorkshopSetting["takesAnswersFrom"]]
 		for answerId, answerDetails in moduleAnswers["answerAnalysis"].items():
 			questionName = surveyResultsAnalyzer.getQuestionNameFromId(answerId, module)
 			workshopSettings["rows"].append({
 				"id": answerId,
-				"questionName": questionName
+				"questionName": questionName,
+				"answers": [""] * len(inPersonWorkshopSetting["columns"])
 			})
-			answers[answerId] = buildAnswerList(inPersonWorkshopSetting)
-		workshopSettings["answers"] = answers
 		moduleInPersonWorkshop.append(workshopSettings)
 
 	# Module ID should not be in the inPersonWorkshops at this point as we are just adding it now
@@ -201,3 +199,9 @@ def buildAnswerList(inPersonWorkshopSetting):
 		else:
 			answerList.append("")
 	return answerList
+
+def saveWorkshopState(companyToUpdate, moduleId, workshops):
+	if "inPersonWorkshops" in companyToUpdate:
+		if moduleId in companyToUpdate["inPersonWorkshops"]:
+			companyToUpdate["inPersonWorkshops"][moduleId] = workshops
+	return companyToUpdate

@@ -71,3 +71,8 @@ def createInPersonWorkshops():
 @app.route('/saveWorkshopState', methods=['POST'])
 def saveWorkshopState():
 	return firebase.saveWorkshopState(request.get_json())
+
+# Add new route here
+# @app.route('/scheduleVideoConference', methods=['POST'])
+# def scheduleVideoConference():
+# 	return firebase.scheduleVideoConference(request.get_json())

@@ -86,6 +86,15 @@ def saveWorkshopState(data):
 	companies.updateCompanyData(db, updatedCompany)
 	return updatedCompany
 
+# Work on this function
+# def scheduleVideoConference(data):
+# 	# get company byId
+# 	updatedCompany = companies.getCompanyById(db, data["companyId"])
+# 	# Add zoom details from api here:
+# 	updatedCompany = inPersonWorkshopManager.scheduleVideoConferenceDate(updatedCompany, data["moduleId"], data["datetime"])
+# 	companies.updateCompanyData(db, updatedCompany)
+# 	return updatedCompany
+
 # For random tests on startup
 # modules2 = db.collection(u'companies').where("participants", "array_contains", "vYXqTtUPwIfYtQnMu1JazQLtxxK2").get()
 # finalModules = []

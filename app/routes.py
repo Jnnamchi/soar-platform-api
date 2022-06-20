@@ -32,6 +32,12 @@ def getUserCompanies():
 		}
 	return firebase.getUserCompanies(userId)
 
+# STEP 1.5: Add Payment
+# May involve a new DB collection managing:
+# WHO PAID
+# WHAT THEY PAID FOR
+# Save into DB and be able to pull this by userId
+
 # STEP 2: Add a company
 @app.route('/addUserCompany', methods=['POST'])
 def addUserCompany():

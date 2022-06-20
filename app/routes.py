@@ -47,27 +47,27 @@ def addModuleToCompany():
 def updateCompanyParticipants():
 	return firebase.updateCompanyParticipants(request.get_json())
 
-# STEP 4: When a particpant completes a survey
+# STEP 5: When a particpant completes a survey
 @app.route('/updateUserSurveyAnswer', methods=['POST'])
 def updateUserSurveyAnswer():
 	return firebase.updateUserSurveyAnswer(request.get_json())
 
-# STEP 5: Start the next virtual workshop for the company
+# STEP 6: Start the next virtual workshop for the company
 @app.route('/createNextWorkshop', methods=['POST'])
 def createNextWorkshop():
 	return firebase.createNextWorkshop(request.get_json())
 
-# STEP 6: When a particpant completes a workshop survey
+# STEP 7: When a particpant completes a workshop survey
 @app.route('/updateUserWorkshopAnswers', methods=['POST'])
 def updateUserWorkshopAnswers():
 	return firebase.updateUserWorkshopAnswers(request.get_json())
 
-# STEP 7: Create & start the in-person workshop for the company
+# STEP 8: Create & start the in-person workshop for the company
 @app.route('/createInPersonWorkshops', methods=['POST'])
 def createInPersonWorkshops():
 	return firebase.createInPersonWorkshops(request.get_json())
 
-# STEP 8: Save the data state of the in-person workshop for the company
+# STEP 9: Save the data state of the in-person workshop for the company
 @app.route('/saveWorkshopState', methods=['POST'])
 def saveWorkshopState():
 	return firebase.saveWorkshopState(request.get_json())

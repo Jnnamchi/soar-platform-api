@@ -1,8 +1,45 @@
 # soar-platform-api
 
 # Quick Start
+### Fill .env.example (you can rename it anyhow you need) with necessary variables, such zoom api keys and stripe api keys.
+## Getting started with docker
 
+#### Build docker image:
+```bash
+docker build -t soar:dev .
 ```
+
+#### Start container:
+Note: .env.example - this file required, it contains zoom's S2S OAuth2 api credentials. You can name it anyhow you want. Or you can pass ENV variables into container with `-e FOO='bar' -e MOO='baz'` options. 
+```Bash
+docker run --env-file ./.env.example -p 127.0.0.1:5000:5000 soar:dev
+```
+
+## Local development start
+
+Requirements:
+- python >= 3.10
+
+#### Install Poetry (Poetry is python package manager, here is docs: https://python-poetry.org/docs/):
+```bash
+curl -sSL https://install.python-poetry.org | python3 -
+```
+
+#### Install dependencies:
+```bash
+poetry install
+```
+#### Start poetry virtual env:
+```bash
+poetry shell
+```
+#### Export env variables from file (from .env.example):
+```bash
+export $(grep -v '^#' .env.example | xargs)
+```
+#### Change directory to `src` and Start application
+```bash
+cd src/
 flask run
 ```
 

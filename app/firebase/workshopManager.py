@@ -191,7 +191,12 @@ def getAnswersUsedForNextWorkshop (companyData, moduleId, nextWorkshopRound):
 		if answer["score"] > 0:
 			answers.append({"id": answerId} | answer) # Merge dictionaries
 	topAnswers = sorted(answers, key=lambda answer: answer[workshopRounds[nextWorkshopRound]["sortKeyName"]], reverse=True)
-	return topAnswers[:workshopRounds[nextWorkshopRound]["takeTopN"]]
+	finalAnswers = []
+	for i in range(workshopRounds[nextWorkshopRound]["takeTopN"]):
+		finalAnswer = topAnswers[i]
+		if finalAnswer[workshopRounds[nextWorkshopRound]["sortKeyName"]] > 0:
+			finalAnswers.append(finalAnswer)
+	return finalAnswers
 
 def addNextWorkshopToCompany(companyData, moduleId):
 
@@ -208,16 +213,29 @@ def addNextWorkshopToCompany(companyData, moduleId):
 def addWorkshopAnalysis(companyData):
 	for moduleId, virtualWorkshopStages in companyData["virtualWorkshops"].items():
 		for stageNumber, virtualWorkshopStage in virtualWorkshopStages.items():
-			virtualWorkshopStage["answerAnalysis"] = runWorkshopAnswerAnalysis(virtualWorkshopStage["moduleAnswers"], stageNumber)
+			virtualWorkshopStage["answerAnalysis"] = runWorkshopAnswerAnalysis(virtualWorkshopStages, virtualWorkshopStage["moduleAnswers"], stageNumber, companyData["answerAnalysis"][moduleId])
 
-def runWorkshopAnswerAnalysis(moduleAnswers, stageNumber):
+def getPreviousWorkshopInitiativeScore(virtualWorkshopStages, stageNumber, companyIntialAnswerAnalysis, initiativeId):
+	stageNumberInt = int(stageNumber)
+	workshopRoundSettings = workshopRounds["round-" + stageNumber]
+	takeAnswersFrom = workshopRoundSettings["takeAnswersFrom"]
+	if takeAnswersFrom == "virtualWorkshops":
+		if initiativeId in virtualWorkshopStages[str(stageNumberInt - 1)]["answerAnalysis"]:
+			return virtualWorkshopStages[str(stageNumberInt - 1)]["answerAnalysis"][initiativeId]["score"]
+	else:
+		return companyIntialAnswerAnalysis[initiativeId]["score"]
+	return 0
+
+def runWorkshopAnswerAnalysis(virtualWorkshopStages, moduleAnswers, stageNumber, companyIntialAnswerAnalysis):
+	stageNumberInt = int(stageNumber)
 	answerTally = {}
 	for userId, userAnswers in moduleAnswers.items():
 		for questionId, answers in userAnswers.items():
 			for initiativeId, answer in answers.items():
 				if initiativeId not in answerTally:
+					previousScore = getPreviousWorkshopInitiativeScore(virtualWorkshopStages, stageNumber, companyIntialAnswerAnalysis, initiativeId)
 					answerTally[initiativeId] = {
-						"score": 0
+						"score": previousScore
 					}
 				if questionId not in answerTally[initiativeId]:
 					answerTally[initiativeId][questionId] = {}

@@ -106,7 +106,7 @@ valueEnhancementPotential = {
 
 inPersonWorkshopSettings = [
 	{	"name": "Opportunities In Person Workshop",
-		"takesAnswersFrom": "2",
+		"takesAnswersFrom": "1",
 		"columns": [
 			companyDescription,
 			# {
@@ -135,7 +135,7 @@ inPersonWorkshopSettings = [
 	},
 	{
 		"name": "Necessities In Person Workshop",
-		"takesAnswersFrom": "3",
+		"takesAnswersFrom": "1",
 		"columns": [
 			companyDescription,
 			# {
@@ -166,22 +166,28 @@ def addModuleInPersonWorkshops (companyData, moduleId, module):
 	moduleVirtualWorkshops = companyData["virtualWorkshops"][moduleId]
 
 	# Build the in person workshop
-	moduleInPersonWorkshop = []
+	moduleInPersonWorkshop = {
+		"reRanking": [],
+		"actionPlan": []
+	}
 	for inPersonWorkshopSetting in inPersonWorkshopSettings:
 		workshopSettings = {
 			"name": inPersonWorkshopSetting["name"],
 			"columns": inPersonWorkshopSetting["columns"],
 			"rows": [],
 		}
-		moduleAnswers = moduleVirtualWorkshops[inPersonWorkshopSetting["takesAnswersFrom"]]
-		for answerId, answerDetails in moduleAnswers["answerAnalysis"].items():
-			questionName = surveyResultsAnalyzer.getQuestionNameFromId(answerId, module)
-			workshopSettings["rows"].append({
-				"id": answerId,
-				"questionName": questionName,
-				"answers": [""] * len(inPersonWorkshopSetting["columns"])
-			})
-		moduleInPersonWorkshop.append(workshopSettings)
+		moduleInPersonWorkshop["actionPlan"].append(workshopSettings)
+
+	moduleAnswers = moduleVirtualWorkshops[inPersonWorkshopSetting["takesAnswersFrom"]]
+	for answerId, answerDetails in moduleAnswers["answerAnalysis"].items():
+		questionName = surveyResultsAnalyzer.getQuestionNameFromId(answerId, module)
+		moduleInPersonWorkshop["reRanking"].append({
+			"id": answerId,
+			"questionName": questionName,
+			"answerDetails": answerDetails,
+			"oppOrNec": "Unselected",
+			"answers": [""] * len(inPersonWorkshopSetting["columns"])
+		})
 
 	# Module ID should not be in the inPersonWorkshops at this point as we are just adding it now
 	companyData["inPersonWorkshops"][moduleId] = moduleInPersonWorkshop

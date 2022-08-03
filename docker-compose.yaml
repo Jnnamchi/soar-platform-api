@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    entrypoint: /app/script/app.sh
+    ports:
+      - "${EXPOSE}"
+    env_file:
+      - .env
+
+  celery:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    entrypoint: /app/script/celery.sh
+    env_file:
+      - .env
+
+  redis:
+    image: redis:latest

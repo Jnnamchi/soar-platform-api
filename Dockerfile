@@ -12,10 +12,13 @@ RUN mkdir /app
 ADD poetry.lock /app
 ADD pyproject.toml /app
 WORKDIR app
-RUN /root/.local/bin/poetry install
+RUN /root/.local/bin/poetry install --no-dev
 
 COPY src /app
+RUN chmod u+x /app/script/celery.sh
+RUN chmod u+x /app/script/app.sh
 RUN chown -R app:app /app
+
 USER app
-EXPOSE 5000
+
 CMD ["uwsgi", "--http", "0.0.0.0:5000", "--master", "-p 4", "-w", "app:app"]

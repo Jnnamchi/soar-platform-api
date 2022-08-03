@@ -167,8 +167,12 @@ def addModuleInPersonWorkshops (companyData, moduleId, module):
 
 	# Build the in person workshop
 	moduleInPersonWorkshop = {
-		"reRanking": [],
-		"actionPlan": []
+		"reRanking": {
+			"unassigned": [],
+			"opportunities": [],
+			"necessities": []
+		},
+		"actionPlan": {}
 	}
 	for inPersonWorkshopSetting in inPersonWorkshopSettings:
 		workshopSettings = {
@@ -176,12 +180,12 @@ def addModuleInPersonWorkshops (companyData, moduleId, module):
 			"columns": inPersonWorkshopSetting["columns"],
 			"rows": [],
 		}
-		moduleInPersonWorkshop["actionPlan"].append(workshopSettings)
+		moduleInPersonWorkshop["actionPlan"][inPersonWorkshopSetting["name"]] = workshopSettings
 
 	moduleAnswers = moduleVirtualWorkshops[inPersonWorkshopSetting["takesAnswersFrom"]]
 	for answerId, answerDetails in moduleAnswers["answerAnalysis"].items():
 		questionName = surveyResultsAnalyzer.getQuestionNameFromId(answerId, module)
-		moduleInPersonWorkshop["reRanking"].append({
+		moduleInPersonWorkshop["reRanking"]["unassigned"].append({
 			"id": answerId,
 			"questionName": questionName,
 			"answerDetails": answerDetails,

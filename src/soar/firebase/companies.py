@@ -87,5 +87,5 @@ def updateUserWorkshopAnswers(db, userId, companyUuid, moduleUuid, answers):
 		for key in companyDict["virtualWorkshops"][moduleUuid]:
 			if int(key) > maxKey:
 				maxKey = int(key)
-			companyDict["virtualWorkshops"][moduleUuid][str(maxKey)]["moduleAnswers"][userId] = answers
+		companyDict["virtualWorkshops"][moduleUuid][str(maxKey)]["moduleAnswers"][userId] = answers
 	return updateCompanyData(db, companyDict)

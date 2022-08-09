@@ -7,7 +7,9 @@ HUGE = 'Huge'
 VERY_BIG = 'Very Big'
 BIG = 'Big'
 MODEST = 'Modest'
+SMALL = 'Small'
 LITTLE_OR_NONE = 'Little or None'
+DONT_KNOW_N_A = "Don't Know or N/A"
 
 EXTREMELY_NECESSARY = 'Extremely Necessary'
 VERY_NECESSARY = 'Very Necessary'
@@ -23,9 +25,21 @@ points = {
 	ONE_TO_TWO_PERCENT: 1,
 	HUGE: 5,
 	VERY_BIG: 4,
-	BIG: 3,
-	MODEST: 2,
+	BIG: 4,
+	MODEST: 3,
+	SMALL: 2,
 	LITTLE_OR_NONE: 1,
+	DONT_KNOW_N_A: 0,
+}
+
+pointsOverrideIds = ('VW1-DDCLCI', 'VW1-CTI', 'VW1-TTI')
+pointsOverrides = {
+	HUGE: 1,
+	BIG: 2,
+	MODEST: 3,
+	SMALL: 4,
+	LITTLE_OR_NONE: 5,
+	DONT_KNOW_N_A: 0
 }
 
 workshopRounds = {
@@ -36,20 +50,55 @@ workshopRounds = {
 		"sortKeyName": "opportunityScore",
 		"takeTopN": 15,
 		"questions": [{
-			"name": "Opporutnity to grow annual Sales Revenue in 2-3 years (measured as a % of current annual sales)",
-			"id": "VW1-OGASR",
+			"name": "Potential to improve Profitability via increased Sales Revenue and/or increased Profit Margins",
+			"id": "VW1-ISRIPM",
 			"type": "matrix",
-			"columns": [ GREATER_THAN_TEN_PERCENT, SEVEN_TO_TEN_PERCENT, FIVE_TO_SEVEN_PERCENT, TWO_TO_FIVE_PERCENT, ONE_TO_TWO_PERCENT ],
+			"columns": [ HUGE, BIG, MODEST, SMALL, LITTLE_OR_NONE, DONT_KNOW_N_A ],
 		},{
-			"name": "Opporutnity to grow Gross Margin % in 2-3 years (measured by comparison to current average Gross Margin %)",
-			"id": "VW1-OGGM",
+			"name": "Potential to improve Profitability via reduction of Cost of Goods Sold and/or Operating Expenses",
+			"id": "VW1-COGCOE",
 			"type": "matrix",
-			"columns": [ GREATER_THAN_TEN_PERCENT, SEVEN_TO_TEN_PERCENT, FIVE_TO_SEVEN_PERCENT, TWO_TO_FIVE_PERCENT, ONE_TO_TWO_PERCENT ],
+			"columns": [ HUGE, BIG, MODEST, SMALL, LITTLE_OR_NONE, DONT_KNOW_N_A ],
 		},{
-			"name": "Impact on company's Differentiation and Competitive Advantage",
-			"id": "VW1-ICDCA",
+			"name": "Potential to improve Culture, Morale, Productivity or Organizational Effectiveness",
+			"id": "VW1-CMPOE",
 			"type": "matrix",
-			"columns": [ HUGE, VERY_BIG, BIG, MODEST, LITTLE_OR_NONE ],
+			"columns": [ HUGE, BIG, MODEST, SMALL, LITTLE_OR_NONE, DONT_KNOW_N_A ],
+		},{
+			"name": "Potential to improve company's Brand Name, Market Differentiation or Competitive Advantage",
+			"id": "VW1-CMPOE",
+			"type": "matrix",
+			"columns": [ HUGE, BIG, MODEST, SMALL, LITTLE_OR_NONE, DONT_KNOW_N_A ],
+		},{
+			"name": "Degree of Difficulty, Complexity, Learning Curve to implement",
+			"id": "VW1-DDCLCI",
+			"type": "matrix",
+			"columns": [ HUGE, BIG, MODEST, SMALL, LITTLE_OR_NONE, DONT_KNOW_N_A ],
+		},{
+			"name": "Cost to implement",
+			"id": "VW1-CTI",
+			"type": "matrix",
+			"columns": [ HUGE, BIG, MODEST, SMALL, LITTLE_OR_NONE, DONT_KNOW_N_A ],
+		},{
+			"name": "Timeframe to implement",
+			"id": "VW1-TTI",
+			"type": "matrix",
+			"columns": [ HUGE, BIG, MODEST, SMALL, LITTLE_OR_NONE, DONT_KNOW_N_A ],
+		},{
+			"name": "Urgency to implement",
+			"id": "VW1-UTI",
+			"type": "matrix",
+			"columns": [ HUGE, BIG, MODEST, SMALL, LITTLE_OR_NONE, DONT_KNOW_N_A ],
+		},{
+			"name": "Likely positive impact on company's success if implemented",
+			"id": "VW1-LPICS",
+			"type": "matrix",
+			"columns": [ HUGE, BIG, MODEST, SMALL, LITTLE_OR_NONE, DONT_KNOW_N_A ],
+		},{
+			"name": "Downside risk if not implemented",
+			"id": "VW1-DRNI",
+			"type": "matrix",
+			"columns": [ HUGE, BIG, MODEST, SMALL, LITTLE_OR_NONE, DONT_KNOW_N_A ],
 		}],
 		"points": {
 			GREATER_THAN_TEN_PERCENT: 5,
@@ -59,11 +108,13 @@ workshopRounds = {
 			ONE_TO_TWO_PERCENT: 1,
 			HUGE: 5,
 			VERY_BIG: 4,
-			BIG: 3,
-			MODEST: 2,
+			BIG: 4,
+			MODEST: 3,
+			SMALL: 2,
 			LITTLE_OR_NONE: 1,
+			DONT_KNOW_N_A: 0
 		},
-		"next-round": "round-2"
+		# "next-round": "round-2"
 	},
 	"round-2": {
 		"name": "Virtual Workshop #2",
@@ -191,7 +242,12 @@ def getAnswersUsedForNextWorkshop (companyData, moduleId, nextWorkshopRound):
 		if answer["score"] > 0:
 			answers.append({"id": answerId} | answer) # Merge dictionaries
 	topAnswers = sorted(answers, key=lambda answer: answer[workshopRounds[nextWorkshopRound]["sortKeyName"]], reverse=True)
-	return topAnswers[:workshopRounds[nextWorkshopRound]["takeTopN"]]
+	finalAnswers = []
+	for i in range(workshopRounds[nextWorkshopRound]["takeTopN"]):
+		finalAnswer = topAnswers[i]
+		if finalAnswer[workshopRounds[nextWorkshopRound]["sortKeyName"]] > 0:
+			finalAnswers.append(finalAnswer)
+	return finalAnswers
 
 def addNextWorkshopToCompany(companyData, moduleId):
 
@@ -208,22 +264,38 @@ def addNextWorkshopToCompany(companyData, moduleId):
 def addWorkshopAnalysis(companyData):
 	for moduleId, virtualWorkshopStages in companyData["virtualWorkshops"].items():
 		for stageNumber, virtualWorkshopStage in virtualWorkshopStages.items():
-			virtualWorkshopStage["answerAnalysis"] = runWorkshopAnswerAnalysis(virtualWorkshopStage["moduleAnswers"], stageNumber)
+			virtualWorkshopStage["answerAnalysis"] = runWorkshopAnswerAnalysis(virtualWorkshopStages, virtualWorkshopStage["moduleAnswers"], stageNumber, companyData["answerAnalysis"][moduleId])
 
-def runWorkshopAnswerAnalysis(moduleAnswers, stageNumber):
+def getPreviousWorkshopInitiativeScore(virtualWorkshopStages, stageNumber, companyIntialAnswerAnalysis, initiativeId):
+	stageNumberInt = int(stageNumber)
+	workshopRoundSettings = workshopRounds["round-" + stageNumber]
+	takeAnswersFrom = workshopRoundSettings["takeAnswersFrom"]
+	if takeAnswersFrom == "virtualWorkshops":
+		if initiativeId in virtualWorkshopStages[str(stageNumberInt - 1)]["answerAnalysis"]:
+			return virtualWorkshopStages[str(stageNumberInt - 1)]["answerAnalysis"][initiativeId]["score"]
+	else:
+		return companyIntialAnswerAnalysis[initiativeId]["score"]
+	return 0
+
+def runWorkshopAnswerAnalysis(virtualWorkshopStages, moduleAnswers, stageNumber, companyIntialAnswerAnalysis):
+	stageNumberInt = int(stageNumber)
 	answerTally = {}
 	for userId, userAnswers in moduleAnswers.items():
 		for questionId, answers in userAnswers.items():
 			for initiativeId, answer in answers.items():
 				if initiativeId not in answerTally:
+					previousScore = getPreviousWorkshopInitiativeScore(virtualWorkshopStages, stageNumber, companyIntialAnswerAnalysis, initiativeId)
 					answerTally[initiativeId] = {
-						"score": 0
+						"score": previousScore
 					}
 				if questionId not in answerTally[initiativeId]:
 					answerTally[initiativeId][questionId] = {}
 				if answer in workshopRounds["round-" + str(stageNumber)]["points"]:
 					if answer not in answerTally[initiativeId][questionId]:
 						answerTally[initiativeId][questionId][answer] = 0
-					answerTally[initiativeId][questionId][answer] += 1
-					answerTally[initiativeId]["score"] += workshopRounds["round-" + str(stageNumber)]["points"][answer]
+					answerTally[initiativeId][questionId][answer] += 1 # Count how many times the specific answer was given for a particular initiative
+					if initiativeId in pointsOverrideIds:
+						answerTally[initiativeId]["score"] += pointsOverrides[answer]
+					else:
+						answerTally[initiativeId]["score"] += workshopRounds["round-" + str(stageNumber)]["points"][answer]
 	return answerTally

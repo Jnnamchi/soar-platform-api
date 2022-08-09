@@ -16,8 +16,11 @@ Flask-Pydantic = "^0.9.0"
 pytz = "^2022.1"
 portalocker = "^2.4.0"
 stripe = "^3.5.0"
+celery = "^5.2.7"
+redis = "^4.3.4"
 
 [tool.poetry.dev-dependencies]
+notebook = "^6.4.12"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

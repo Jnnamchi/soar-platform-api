@@ -215,3 +215,17 @@ def saveWorkshopState(companyToUpdate, moduleId, workshops):
 		if moduleId in companyToUpdate["inPersonWorkshops"]:
 			companyToUpdate["inPersonWorkshops"][moduleId] = workshops
 	return companyToUpdate
+
+
+# def scheduleVideoConferenceDate(companyToUpdate, moduleId, date):
+	# TODO:
+	# 1. Call zoom api to create a new zoom meeting
+	# Final object should look like:
+	# zoomlinkObj = {
+	# 	"zoomUrl": "zoom.com/adqo9jqwodqo",
+	# 	"workshopDate": date
+	# }
+	# 2. Add this object to the companyToUpdate
+	# companyToUpdate["inPersonWorkshops"][moduleId][videoConferenceDate] = zoomlinkObj
+	# 3. Return company to update
+	# return companyToUpdate

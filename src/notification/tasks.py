@@ -2,6 +2,7 @@ import logging
 import datetime
 import pytz
 import smtplib
+import typing as ty
 
 from celery import shared_task
 from app import app
@@ -11,7 +12,7 @@ from notification.email.dto import EmailTemplate
 from .tempaltes import TEMPLATES
 
 
-def find_template(name: str) -> EmailTemplate | None:
+def find_template(name: str) -> ty.Union[EmailTemplate, None]:
     temps = list(filter(lambda i: i.name.lower() == name.lower(), TEMPLATES))
     if temps:
         return temps.pop()

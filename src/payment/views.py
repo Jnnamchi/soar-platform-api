@@ -1,5 +1,4 @@
 import logging
-import json
 from flask import Blueprint, jsonify, current_app, request
 from flask_pydantic import validate
 from firebase_admin.firestore import firestore

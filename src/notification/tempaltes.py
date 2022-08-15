@@ -1,7 +1,8 @@
+import typing as ty
 from notification.email.dto import EmailTemplate
 
 
-TEMPLATES: list[EmailTemplate] = [
+TEMPLATES: ty.List[EmailTemplate] = [
     EmailTemplate(
         name='Greeting',
         subj='Greeting!',

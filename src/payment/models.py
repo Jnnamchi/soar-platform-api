@@ -1,7 +1,7 @@
 import datetime
+import typing as ty
 from decimal import Decimal
-from typing import Literal
-from pydantic import BaseModel, validator, condecimal
+from pydantic import BaseModel, condecimal
 
 
 class InitCheckout(BaseModel):
@@ -24,23 +24,23 @@ class Product(BaseModel):
 
 
 class PaymentModel(BaseModel):
-    id: str | None
+    id: ty.Optional[str]
     created_by: str
     company_id: str
     created_at: datetime.datetime
-    status: Literal['init', 'success', 'processing', 'failed'] = 'init'
+    status: ty.Literal['init', 'success', 'processing', 'failed'] = 'init'
     amount: int
-    products: list[Product]
-    checkout_session_id: str | None
+    products: ty.List[Product]
+    checkout_session_id: ty.Optional[str]
 
 
 class PaymentQuery(BaseModel):
-    created_by: str | None
-    company_id: str | None
+    created_by: ty.Optional[str]
+    company_id: ty.Optional[str]
 
 
 class PaymentsResponse(BaseModel):
-    results: list[PaymentModel]
+    results: ty.List[PaymentModel]
 
 
 class StripeCustomer(BaseModel):

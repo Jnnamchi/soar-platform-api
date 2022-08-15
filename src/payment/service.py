@@ -8,8 +8,6 @@ from firebase_admin import auth
 from .models import InitCheckout, Product, PaymentModel, StripeCustomer
 
 
-
-
 def get_or_create_stripe_customer(user_id: str) -> StripeCustomer:
     """Lookup in firestore for customer and create if not exists"""
     stripe = current_app.config['STRIPE']

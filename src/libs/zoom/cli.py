@@ -1,7 +1,7 @@
 import logging
+import typing as ty
 from enum import Enum
 from functools import partial
-from typing import Optional, Literal
 
 from pydantic import parse_obj_as
 import requests
@@ -14,7 +14,7 @@ from .error import ZoomApiError
 logger = logging.getLogger(__name__)
 
 
-Method = Literal['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
+Method = ty.Literal['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
 
 
 class MeetingType(Enum):
@@ -39,7 +39,7 @@ class ZoomAPiClient:
               path: str,
               data: dict = None,
               auth: bool = True,
-              version: Optional[str] = None) -> requests.Response:
+              version: ty.Optional[str] = None) -> requests.Response:
 
         if self.auth.expired:
             self.auth.refresh_token()
@@ -81,10 +81,10 @@ class ZoomAPiClient:
 
     def get_meetings(self,
                      user: str,
-                     m_type: Optional[MeetingType] = None,
-                     next_page_token: Optional[str] = None,
-                     page_number: Optional[int] = None,
-                     page_size: Optional[int] = None) -> MeetingsList:
+                     m_type: ty.Optional[MeetingType] = None,
+                     next_page_token: ty.Optional[str] = None,
+                     page_number: ty.Optional[int] = None,
+                     page_size: ty.Optional[int] = None) -> MeetingsList:
 
         """Use this API to list a user's (meeting host) scheduled meetings. For user-level apps, pass the `me` value
         instead of the userId parameter. """

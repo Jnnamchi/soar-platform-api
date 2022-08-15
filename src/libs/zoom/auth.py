@@ -2,8 +2,8 @@ import time
 import base64
 import logging
 import pickle
+import typing as ty
 from pathlib import Path
-from typing import Optional, Dict, Union
 from urllib.parse import urlencode
 
 import requests
@@ -33,7 +33,7 @@ class TokenFileStorage(TokenStorageIface):
         with portalocker.Lock(name, 'wb', timeout=5) as fh:
             pickle.dump(token, fh)
 
-    def get(self) -> ZoomToken | None:
+    def get(self) -> ty.Union[ZoomToken, None]:
         file = self.path / self.name
         if not file.is_file():
             return None
@@ -53,7 +53,7 @@ class ZoomS2SOAuth(ZoomAuthIface):
                  client_id: str,
                  client_secret: str,
                  account_id: str,
-                 storage: Optional[TokenStorageIface] = None):
+                 storage: ty.Optional[TokenStorageIface] = None):
         self.account_id = account_id
         self.client_id = client_id
         self.client_secret = client_secret
@@ -114,7 +114,7 @@ class ZoomS2SOAuth(ZoomAuthIface):
         logger.debug('In token refresh')
         self.obtain_token()
 
-    def get_auth_header(self) -> Dict[str, str]:
+    def get_auth_header(self) -> ty.Dict[str, str]:
         token = self.storage.get()
         if token is None:
             raise ZoomAuthError('Token is not obtained yet.')

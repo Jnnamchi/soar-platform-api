@@ -1,4 +1,4 @@
-from typing import Optional
+import typing as ty
 from pydantic import BaseModel
 
 
@@ -7,4 +7,4 @@ class EmailTemplate(BaseModel):
     name: str
     subj: str
     message: str
-    html: Optional[str]
+    html: ty.Optional[str]

@@ -106,7 +106,7 @@ valueEnhancementPotential = {
 
 inPersonWorkshopSettings = [
 	{	"name": "Opportunities In Person Workshop",
-		"takesAnswersFrom": "1",
+		"takesAnswersFrom": "2",
 		"columns": [
 			companyDescription,
 			# {
@@ -135,7 +135,7 @@ inPersonWorkshopSettings = [
 	},
 	{
 		"name": "Necessities In Person Workshop",
-		"takesAnswersFrom": "1",
+		"takesAnswersFrom": "3",
 		"columns": [
 			companyDescription,
 			# {
@@ -166,32 +166,22 @@ def addModuleInPersonWorkshops (companyData, moduleId, module):
 	moduleVirtualWorkshops = companyData["virtualWorkshops"][moduleId]
 
 	# Build the in person workshop
-	moduleInPersonWorkshop = {
-		"reRanking": {
-			"unassigned": [],
-			"opportunities": [],
-			"necessities": []
-		},
-		"actionPlan": {}
-	}
+	moduleInPersonWorkshop = []
 	for inPersonWorkshopSetting in inPersonWorkshopSettings:
 		workshopSettings = {
 			"name": inPersonWorkshopSetting["name"],
 			"columns": inPersonWorkshopSetting["columns"],
 			"rows": [],
 		}
-		moduleInPersonWorkshop["actionPlan"][inPersonWorkshopSetting["name"]] = workshopSettings
-
-	moduleAnswers = moduleVirtualWorkshops[inPersonWorkshopSetting["takesAnswersFrom"]]
-	for answerId, answerDetails in moduleAnswers["answerAnalysis"].items():
-		questionName = surveyResultsAnalyzer.getQuestionNameFromId(answerId, module)
-		moduleInPersonWorkshop["reRanking"]["unassigned"].append({
-			"id": answerId,
-			"questionName": questionName,
-			"answerDetails": answerDetails,
-			"oppOrNec": "Unselected",
-			"answers": [""] * len(inPersonWorkshopSetting["columns"])
-		})
+		moduleAnswers = moduleVirtualWorkshops[inPersonWorkshopSetting["takesAnswersFrom"]]
+		for answerId, answerDetails in moduleAnswers["answerAnalysis"].items():
+			questionName = surveyResultsAnalyzer.getQuestionNameFromId(answerId, module)
+			workshopSettings["rows"].append({
+				"id": answerId,
+				"questionName": questionName,
+				"answers": [""] * len(inPersonWorkshopSetting["columns"])
+			})
+		moduleInPersonWorkshop.append(workshopSettings)
 
 	# Module ID should not be in the inPersonWorkshops at this point as we are just adding it now
 	companyData["inPersonWorkshops"][moduleId] = moduleInPersonWorkshop

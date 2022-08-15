@@ -1,4 +1,4 @@
-from typing import Optional
+import typing as ty
 from abc import ABC, abstractmethod
 
 import smtplib
@@ -13,7 +13,7 @@ from .config import SmtpConfig
 class TransportIface(ABC):
 
     @abstractmethod
-    def send(self, to: str, subj: str, message: str, html: Optional[str] = None):
+    def send(self, to: str, subj: str, message: str, html: ty.Optional[str] = None):
         """Send email to recipient"""
 
 
@@ -25,8 +25,8 @@ class EmailSMTPTransport(TransportIface):
                  port: int,
                  user: str,
                  passw: str,
-                 use_auth: Optional[bool] = True,
-                 tsl: Optional[bool] = True):
+                 use_auth: ty.Optional[bool] = True,
+                 tsl: ty.Optional[bool] = True):
         self.from_ = from_
         self.host = host
         self.port = port
@@ -35,7 +35,7 @@ class EmailSMTPTransport(TransportIface):
         self.use_auth = use_auth
         self.tsl = tsl
 
-    def send(self, to: str | list[str], subj: str, message: str, html: Optional[str] = None):
+    def send(self, to: ty.Union[str, ty.List[str]], subj: str, message: str, html: ty.Optional[str] = None):
         """Send email."""
 
         if isinstance(to, list):
@@ -73,7 +73,7 @@ class EmailSMTPTransport(TransportIface):
         mail.quit()
 
     @classmethod
-    def from_config(cls, config: Optional[SmtpConfig] = None) -> 'EmailSMTPTransport':
+    def from_config(cls, config: ty.Optional[SmtpConfig] = None) -> 'EmailSMTPTransport':
         if config is None:
             config = SmtpConfig()
 

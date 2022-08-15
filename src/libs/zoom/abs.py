@@ -1,4 +1,4 @@
-from typing import Dict
+import typing as ty
 from abc import ABC, abstractmethod
 
 from .dto import ZoomToken
@@ -8,7 +8,7 @@ class ZoomAuthIface(ABC):
     """Zoom authentication interface"""
 
     @abstractmethod
-    def get_auth_header(self) -> Dict[str, str]:
+    def get_auth_header(self) -> ty.Dict[str, str]:
         """Get auth header string: Authorization: Bearer <token>"""
 
     @abstractmethod

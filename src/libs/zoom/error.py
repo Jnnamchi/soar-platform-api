@@ -1,4 +1,4 @@
-from typing import Optional
+import typing as ty
 import logging
 import contextlib
 from http.client import HTTPConnection
@@ -7,7 +7,7 @@ from http.client import HTTPConnection
 class ZoomError(Exception):
     """Base exception"""
 
-    def __init__(self, message: str, data: Optional[dict] = None):
+    def __init__(self, message: str, data: ty.Optional[dict] = None):
         self.message = message
         self.data = data
 

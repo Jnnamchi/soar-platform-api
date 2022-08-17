@@ -16,7 +16,7 @@ rationale = {
 estimatedCostToImplement = {
 	"title": "Estimated Cost to Implement",
 	"subtitle": "",
-	"type": "text",
+	"type": "currency",
 	"options": []
 }
 estimatedStartDate = {
@@ -71,36 +71,36 @@ status = {
 	"title": "Status",
 	"subtitle": "(Select Drop Down Item)",
 	"type": "dropdown",
-	"options": [ "Not Started", "Delayed", "On Schedule", "Behind Schedule", "Completed", "Other" ]
+	"options": [ "Not Started", "Delayed", "On Schedule", "Behind Schedule", "Completed", "Short Term Hold", "Long Term Hold", "Other" ]
 }
 revenueEnhancementOrCostReductionPotentialFirstYear = {
 	"title": "Revenue Enhancement Or Cost Reduction Potential",
 	"subtitle": "First Year",
-	"type": "text",
+	"type": "currency",
 	"options": []
 }
 revenueEnhancementOrCostReductionPotentialThirdYear = {
 	"title": "Revenue Enhancement Or Cost Reduction Potential",
 	"subtitle": "Third Year",
-	"type": "text",
+	"type": "currency",
 	"options": []
 }
 revenueEnhancementOrCostReductionPotentialFifthYear = {
 	"title": "Revenue Enhancement Or Cost Reduction Potential",
 	"subtitle": "Fifth Year",
-	"type": "text",
+	"type": "currency",
 	"options": []
 }
 grossProfitPotential = {
 	"title": "Gross Profit % Potential",
 	"subtitle": "",
-	"type": "text",
+	"type": "percentage",
 	"options": []
 }
 valueEnhancementPotential = {
 	"title": "Value Enhancement Potential",
 	"subtitle": "",
-	"type": "text",
+	"type": "currency",
 	"options": []
 }
 
@@ -116,6 +116,7 @@ inPersonWorkshopSettings = [
 			# 	"options": [ "Sales & Margin Growth", "Productivity & Efficiency", "Cost Reduction", "Customer Satisfaction & Retention", "Organization, Culture, Leadership", "Accounting, Analytics, Finance, IT", "Operations & Supply Chain", "Processes, Systems, Controls, Safety, Quality", "Other" ]
 			# },
 			rationale,
+			status,
 			revenueEnhancementOrCostReductionPotentialFirstYear,
 			revenueEnhancementOrCostReductionPotentialThirdYear,
 			revenueEnhancementOrCostReductionPotentialFifthYear,
@@ -130,7 +131,6 @@ inPersonWorkshopSettings = [
 			majorActionItemsDay31To90,
 			majorActionItemsBeyond90Days,
 			biggestObstaclesToSuccess,
-			status,
 		]
 	},
 	{
@@ -145,6 +145,7 @@ inPersonWorkshopSettings = [
 			# 	"options": [ "Sales & Margin Growth", "Productivity & Efficiency", "Cost Reduction", "Customer Satisfaction & Retention", "Organization, Culture, Leadership", "Accounting, Analytics, Finance, IT", "Operations & Supply Chain", "Processes, Systems, Controls, Safety, Quality", "Other" ]
 			# },
 			rationale,
+			status,
 			estimatedCostToImplement,
 			estimatedStartDate,
 			estimatedCompletionDate,
@@ -154,7 +155,6 @@ inPersonWorkshopSettings = [
 			majorActionItemsDay31To90,
 			majorActionItemsBeyond90Days,
 			biggestObstaclesToSuccess,
-			status,
 		]
 	}
 ]

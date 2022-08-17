@@ -10,6 +10,7 @@ from zoom.views import zoom
 from payment.views import pmt
 from prestart import init_stripe, init_firestore, init_zoom_api
 
+from flask_cors import CORS, cross_origin
 
 def create_app() -> Flask:
     application = Flask(__name__)
@@ -50,6 +51,8 @@ def create_app() -> Flask:
 
 app = create_app()
 
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.errorhandler(HTTPException)
 def handle_exception(e):

@@ -32,7 +32,7 @@ points = {
 	DONT_KNOW_N_A: 0,
 }
 
-pointsOverrideIds = ('VW1-DDCLCI', 'VW1-CTI', 'VW1-TTI')
+pointsOverrideIds = ('VW1-DDCI', 'VW1-CTI', 'VW1-TTI')
 pointsOverrides = {
 	HUGE: 1,
 	BIG: 2,
@@ -50,28 +50,18 @@ workshopRounds = {
 		"sortKeyName": "opportunityScore",
 		"takeTopN": 15,
 		"questions": [{
-			"name": "Potential to improve Profitability via increased Sales Revenue and/or increased Profit Margins",
-			"id": "VW1-ISRIPM",
+			"name": "Potential to improve Profitability - via increased Sales Revenue or Gross Profit Margins and/or reduction of Operating Expenses or Cost of Goods Sold",
+			"id": "VW1-PIPISRGPM",
 			"type": "matrix",
 			"columns": [ HUGE, BIG, MODEST, SMALL, LITTLE_OR_NONE, DONT_KNOW_N_A ],
 		},{
-			"name": "Potential to improve Profitability via reduction of Cost of Goods Sold and/or Operating Expenses",
-			"id": "VW1-COGCOE",
+			"name": "Potential to improve Business Effectiveness - by improving Culture, Morale, Productivity, Organizational Effectiveness, Information Systems, Quality, Controls, Brand Name, Market Differentiation or Competitive Advantage",
+			"id": "VW1-PIBEICMPOE",
 			"type": "matrix",
 			"columns": [ HUGE, BIG, MODEST, SMALL, LITTLE_OR_NONE, DONT_KNOW_N_A ],
 		},{
-			"name": "Potential to improve Culture, Morale, Productivity or Organizational Effectiveness",
-			"id": "VW1-CMPOE",
-			"type": "matrix",
-			"columns": [ HUGE, BIG, MODEST, SMALL, LITTLE_OR_NONE, DONT_KNOW_N_A ],
-		},{
-			"name": "Potential to improve company's Brand Name, Market Differentiation or Competitive Advantage",
-			"id": "VW1-CMPOE",
-			"type": "matrix",
-			"columns": [ HUGE, BIG, MODEST, SMALL, LITTLE_OR_NONE, DONT_KNOW_N_A ],
-		},{
-			"name": "Degree of Difficulty, Complexity, Learning Curve to implement",
-			"id": "VW1-DDCLCI",
+			"name": "Degree of Difficulty and/or Complexity to implement",
+			"id": "VW1-DDCI",
 			"type": "matrix",
 			"columns": [ HUGE, BIG, MODEST, SMALL, LITTLE_OR_NONE, DONT_KNOW_N_A ],
 		},{
@@ -85,18 +75,13 @@ workshopRounds = {
 			"type": "matrix",
 			"columns": [ HUGE, BIG, MODEST, SMALL, LITTLE_OR_NONE, DONT_KNOW_N_A ],
 		},{
-			"name": "Urgency to implement",
-			"id": "VW1-UTI",
+			"name": "Degree of Urgency to implement",
+			"id": "VW1-DUI",
 			"type": "matrix",
 			"columns": [ HUGE, BIG, MODEST, SMALL, LITTLE_OR_NONE, DONT_KNOW_N_A ],
 		},{
-			"name": "Likely positive impact on company's success if implemented",
-			"id": "VW1-LPICS",
-			"type": "matrix",
-			"columns": [ HUGE, BIG, MODEST, SMALL, LITTLE_OR_NONE, DONT_KNOW_N_A ],
-		},{
-			"name": "Downside risk if not implemented",
-			"id": "VW1-DRNI",
+			"name": "Degree of downside Risk if not implemented",
+			"id": "VW1-DDRINI",
 			"type": "matrix",
 			"columns": [ HUGE, BIG, MODEST, SMALL, LITTLE_OR_NONE, DONT_KNOW_N_A ],
 		}],

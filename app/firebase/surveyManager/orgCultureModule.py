@@ -421,50 +421,10 @@ moduleSurvey = {
 			]
 		},
 		{
-			"name": "Empowerment, Engagement & Teamwork",
+			"name": "Communications",
 			"questions": [
 				{
-					"name": "Empowerment, Engagement & Teamwork",
-					"type": "matrix",
-					"columns": standardMatrixColumns,
-					"rows": [
-						{
-							"id": "Org-Culture-EET-1",
-							"question": "Improving employee and/or manager empowerment",
-							"answer": "",
-						},
-						{
-							"id": "Org-Culture-EET-2",
-							"question": "Improving employee and/or manager engagement",
-							"answer": "",
-						},
-						{
-							"id": "Org-Culture-EET-3",
-							"question": "Improving teamwork/collaboration and crossfunctional training",
-							"answer": "",
-						},
-						{
-							"id": "Org-Culture-EET-4",
-							"question": "Improving cooperation between departments",
-							"answer": "",
-						},
-						{
-							"id": "Org-Culture-EET-5",
-							"question": "Encouraging internal entrepreneurship, creativity and input",
-							"answer": "",
-						},
-					],
-					"answer": [],
-					"choices": [],
-					"items": []
-				},
-			]
-		},
-		{
-			"name": "Communmications",
-			"questions": [
-				{
-					"name": "Communmications",
+					"name": "Communications",
 					"type": "matrix",
 					"columns": standardMatrixColumns,
 					"rows": [
@@ -680,103 +640,103 @@ moduleSurvey = {
 				},
 			]
 		},
-		{
-			"name": "Details About You",
-			"questions": [
-				{
-					"id": "Growth-Details-Name",
-					"name": "What is your first and last name (optional)?",
-					"type": "text",
-					"columns": [],
-					"rows": [],
-					"answer": "",
-					"choices": [],
-					"items": []
-				},
-				{
-					"id": "Growth-Details-Email",
-					"name": "What is your work email address (optional)?",
-					"type": "text",
-					"columns": [],
-					"rows": [],
-					"answer": "",
-					"choices": [],
-					"items": []
-				},
-				{
-					"id": "Growth-Details-Department",
-					"name": "What department are you in (optional)?",
-					"type": "text",
-					"columns": [],
-					"rows": [],
-					"answer": "",
-					"choices": [],
-					"items": []
-				},
-				{
-					"id": "Growth-Details-Location",
-					"name": "What location do you work in (optional)?",
-					"type": "text",
-					"columns": [],
-					"rows": [],
-					"answer": "",
-					"choices": [],
-					"items": []
-				},
-				{
-					"id": "Growth-Details-Title",
-					"name": "What is your title (optional)?",
-					"type": "text",
-					"columns": [],
-					"rows": [],
-					"answer": "",
-					"choices": [],
-					"items": []
-				},
-				{
-					"id": "Growth-Details-Tenure",
-					"name": "How long have you worked for the company (optional)?",
-					"type": "radio",
-					"columns": [],
-					"rows": [],
-					"answer": "",
-					"choices": [
-						"Less than a year",
-						"1 - 2 years",
-						"3 - 5 years",
-						"6 - 10 years",
-						"11 - 20 years",
-						"More than 20 years"
-					],
-					"items": []
-				},
-				{
-					"id": "Growth-Details-Position",
-					"name": "Describe the position in the organization that best fits your role (Required)",
-					"type": "radio",
-					"columns": [],
-					"rows": [],
-					"answer": "",
-					"choices": [
-						"C-Suite, including CEO, President, COO, Board Member, Owner",
-						"Executive Management, including General Manager, Senior/Executive Vice President",
-						"Vice President",
-						"Director",
-						"Manager",
-						"Supervisor",
-						"Non-manager - hourly",
-						"Non-manager - salary",
-						"Other"
-					],
-					"items": []
-				}
-			]
-		},
+		# {
+		# 	"name": "Details About You",
+		# 	"questions": [
+		# 		{
+		# 			"id": "Growth-Details-Name",
+		# 			"name": "What is your first and last name (optional)?",
+		# 			"type": "text",
+		# 			"columns": [],
+		# 			"rows": [],
+		# 			"answer": "",
+		# 			"choices": [],
+		# 			"items": []
+		# 		},
+		# 		{
+		# 			"id": "Growth-Details-Email",
+		# 			"name": "What is your work email address (optional)?",
+		# 			"type": "text",
+		# 			"columns": [],
+		# 			"rows": [],
+		# 			"answer": "",
+		# 			"choices": [],
+		# 			"items": []
+		# 		},
+		# 		{
+		# 			"id": "Growth-Details-Department",
+		# 			"name": "What department are you in (optional)?",
+		# 			"type": "text",
+		# 			"columns": [],
+		# 			"rows": [],
+		# 			"answer": "",
+		# 			"choices": [],
+		# 			"items": []
+		# 		},
+		# 		{
+		# 			"id": "Growth-Details-Location",
+		# 			"name": "What location do you work in (optional)?",
+		# 			"type": "text",
+		# 			"columns": [],
+		# 			"rows": [],
+		# 			"answer": "",
+		# 			"choices": [],
+		# 			"items": []
+		# 		},
+		# 		{
+		# 			"id": "Growth-Details-Title",
+		# 			"name": "What is your title (optional)?",
+		# 			"type": "text",
+		# 			"columns": [],
+		# 			"rows": [],
+		# 			"answer": "",
+		# 			"choices": [],
+		# 			"items": []
+		# 		},
+		# 		{
+		# 			"id": "Growth-Details-Tenure",
+		# 			"name": "How long have you worked for the company (optional)?",
+		# 			"type": "radio",
+		# 			"columns": [],
+		# 			"rows": [],
+		# 			"answer": "",
+		# 			"choices": [
+		# 				"Less than a year",
+		# 				"1 - 2 years",
+		# 				"3 - 5 years",
+		# 				"6 - 10 years",
+		# 				"11 - 20 years",
+		# 				"More than 20 years"
+		# 			],
+		# 			"items": []
+		# 		},
+		# 		{
+		# 			"id": "Growth-Details-Position",
+		# 			"name": "Describe the position in the organization that best fits your role (Required)",
+		# 			"type": "radio",
+		# 			"columns": [],
+		# 			"rows": [],
+		# 			"answer": "",
+		# 			"choices": [
+		# 				"C-Suite, including CEO, President, COO, Board Member, Owner",
+		# 				"Executive Management, including General Manager, Senior/Executive Vice President",
+		# 				"Vice President",
+		# 				"Director",
+		# 				"Manager",
+		# 				"Supervisor",
+		# 				"Non-manager - hourly",
+		# 				"Non-manager - salary",
+		# 				"Other"
+		# 			],
+		# 			"items": []
+		# 		}
+		# 	]
+		# },
 	]
   }
 }
 moduleUuid = '5ynpgMoSMz4o2Yl67kfu'
-cred = credentials.Certificate('/Users/jnnamchi/go/src/github.com/Jnnamchi/soar-platform-api/src/credentials.json')
+cred = credentials.Certificate('/Users/jnnamchi/go/src/github.com/Jnnamchi/soar-platform-api/app/firebase/credentials.json')
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()

@@ -16,7 +16,7 @@ rationale = {
 estimatedCostToImplement = {
 	"title": "Estimated Cost to Implement",
 	"subtitle": "",
-	"type": "currency",
+	"type": "text",
 	"options": []
 }
 estimatedStartDate = {
@@ -71,42 +71,42 @@ status = {
 	"title": "Status",
 	"subtitle": "(Select Drop Down Item)",
 	"type": "dropdown",
-	"options": [ "Not Started", "Delayed", "On Schedule", "Behind Schedule", "Completed", "Short Term Hold", "Long Term Hold", "Other" ]
+	"options": [ "Not Started", "Delayed", "On Schedule", "Behind Schedule", "Completed", "Other" ]
 }
 revenueEnhancementOrCostReductionPotentialFirstYear = {
 	"title": "Revenue Enhancement Or Cost Reduction Potential",
 	"subtitle": "First Year",
-	"type": "currency",
+	"type": "text",
 	"options": []
 }
 revenueEnhancementOrCostReductionPotentialThirdYear = {
 	"title": "Revenue Enhancement Or Cost Reduction Potential",
 	"subtitle": "Third Year",
-	"type": "currency",
+	"type": "text",
 	"options": []
 }
 revenueEnhancementOrCostReductionPotentialFifthYear = {
 	"title": "Revenue Enhancement Or Cost Reduction Potential",
 	"subtitle": "Fifth Year",
-	"type": "currency",
+	"type": "text",
 	"options": []
 }
 grossProfitPotential = {
 	"title": "Gross Profit % Potential",
 	"subtitle": "",
-	"type": "percentage",
+	"type": "text",
 	"options": []
 }
 valueEnhancementPotential = {
 	"title": "Value Enhancement Potential",
 	"subtitle": "",
-	"type": "currency",
+	"type": "text",
 	"options": []
 }
 
 inPersonWorkshopSettings = [
 	{	"name": "Opportunities In Person Workshop",
-		"takesAnswersFrom": "2",
+		"takesAnswersFrom": "1",
 		"columns": [
 			companyDescription,
 			# {
@@ -116,7 +116,6 @@ inPersonWorkshopSettings = [
 			# 	"options": [ "Sales & Margin Growth", "Productivity & Efficiency", "Cost Reduction", "Customer Satisfaction & Retention", "Organization, Culture, Leadership", "Accounting, Analytics, Finance, IT", "Operations & Supply Chain", "Processes, Systems, Controls, Safety, Quality", "Other" ]
 			# },
 			rationale,
-			status,
 			revenueEnhancementOrCostReductionPotentialFirstYear,
 			revenueEnhancementOrCostReductionPotentialThirdYear,
 			revenueEnhancementOrCostReductionPotentialFifthYear,
@@ -131,11 +130,12 @@ inPersonWorkshopSettings = [
 			majorActionItemsDay31To90,
 			majorActionItemsBeyond90Days,
 			biggestObstaclesToSuccess,
+			status,
 		]
 	},
 	{
 		"name": "Necessities In Person Workshop",
-		"takesAnswersFrom": "3",
+		"takesAnswersFrom": "1",
 		"columns": [
 			companyDescription,
 			# {
@@ -145,7 +145,6 @@ inPersonWorkshopSettings = [
 			# 	"options": [ "Sales & Margin Growth", "Productivity & Efficiency", "Cost Reduction", "Customer Satisfaction & Retention", "Organization, Culture, Leadership", "Accounting, Analytics, Finance, IT", "Operations & Supply Chain", "Processes, Systems, Controls, Safety, Quality", "Other" ]
 			# },
 			rationale,
-			status,
 			estimatedCostToImplement,
 			estimatedStartDate,
 			estimatedCompletionDate,
@@ -155,6 +154,7 @@ inPersonWorkshopSettings = [
 			majorActionItemsDay31To90,
 			majorActionItemsBeyond90Days,
 			biggestObstaclesToSuccess,
+			status,
 		]
 	}
 ]
@@ -166,22 +166,32 @@ def addModuleInPersonWorkshops (companyData, moduleId, module):
 	moduleVirtualWorkshops = companyData["virtualWorkshops"][moduleId]
 
 	# Build the in person workshop
-	moduleInPersonWorkshop = []
+	moduleInPersonWorkshop = {
+		"reRanking": {
+			"unassigned": [],
+			"opportunities": [],
+			"necessities": []
+		},
+		"actionPlan": {}
+	}
 	for inPersonWorkshopSetting in inPersonWorkshopSettings:
 		workshopSettings = {
 			"name": inPersonWorkshopSetting["name"],
 			"columns": inPersonWorkshopSetting["columns"],
 			"rows": [],
 		}
-		moduleAnswers = moduleVirtualWorkshops[inPersonWorkshopSetting["takesAnswersFrom"]]
-		for answerId, answerDetails in moduleAnswers["answerAnalysis"].items():
-			questionName = surveyResultsAnalyzer.getQuestionNameFromId(answerId, module)
-			workshopSettings["rows"].append({
-				"id": answerId,
-				"questionName": questionName,
-				"answers": [""] * len(inPersonWorkshopSetting["columns"])
-			})
-		moduleInPersonWorkshop.append(workshopSettings)
+		moduleInPersonWorkshop["actionPlan"][inPersonWorkshopSetting["name"]] = workshopSettings
+
+	moduleAnswers = moduleVirtualWorkshops[inPersonWorkshopSetting["takesAnswersFrom"]]
+	for answerId, answerDetails in moduleAnswers["answerAnalysis"].items():
+		questionName = surveyResultsAnalyzer.getQuestionNameFromId(answerId, module)
+		moduleInPersonWorkshop["reRanking"]["unassigned"].append({
+			"id": answerId,
+			"questionName": questionName,
+			"answerDetails": answerDetails,
+			"oppOrNec": "Unselected",
+			"answers": [""] * len(inPersonWorkshopSetting["columns"])
+		})
 
 	# Module ID should not be in the inPersonWorkshops at this point as we are just adding it now
 	companyData["inPersonWorkshops"][moduleId] = moduleInPersonWorkshop

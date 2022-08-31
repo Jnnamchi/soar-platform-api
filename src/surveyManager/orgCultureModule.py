@@ -736,7 +736,7 @@ moduleSurvey = {
   }
 }
 moduleUuid = '5ynpgMoSMz4o2Yl67kfu'
-cred = credentials.Certificate('/Users/jnnamchi/go/src/github.com/Jnnamchi/soar-platform-api/app/firebase/credentials.json')
+cred = credentials.Certificate('/Users/jnnamchi/go/src/github.com/Jnnamchi/soar-platform-api/src/credentials.json')
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()

@@ -249,6 +249,9 @@ def addNextWorkshopToCompany(companyData, moduleId):
 def addWorkshopAnalysis(companyData):
 	for moduleId, virtualWorkshopStages in companyData["virtualWorkshops"].items():
 		for stageNumber, virtualWorkshopStage in virtualWorkshopStages.items():
+			virtualWorkshopStage["questionsOrder"] = []
+			for questionObj in workshopRounds["round-" + str(stageNumber)]["questions"]:
+				virtualWorkshopStage["questionsOrder"].append(questionObj["name"])
 			virtualWorkshopStage["answerAnalysis"] = runWorkshopAnswerAnalysis(virtualWorkshopStages, virtualWorkshopStage["moduleAnswers"], stageNumber, companyData["answerAnalysis"][moduleId])
 
 def getPreviousWorkshopInitiativeScore(virtualWorkshopStages, stageNumber, companyIntialAnswerAnalysis, initiativeId):

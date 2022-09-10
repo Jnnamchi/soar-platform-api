@@ -71,7 +71,7 @@ status = {
 	"title": "Status",
 	"subtitle": "(Select Drop Down Item)",
 	"type": "dropdown",
-	"options": [ "Not Started", "Delayed", "On Schedule", "Behind Schedule", "Completed", "Other" ]
+	"options": [ "Not Started", "Delayed", "On Schedule", "Behind Schedule", "On Hold - Short Term", "On Hold - Medium Term", "On Hold - Long Term", "Completed", "No Longer Applicable", "Other" ]
 }
 revenueEnhancementOrCostReductionPotentialFirstYear = {
 	"title": "Revenue Enhancement Or Cost Reduction Potential",
@@ -116,6 +116,7 @@ inPersonWorkshopSettings = [
 			# 	"options": [ "Sales & Margin Growth", "Productivity & Efficiency", "Cost Reduction", "Customer Satisfaction & Retention", "Organization, Culture, Leadership", "Accounting, Analytics, Finance, IT", "Operations & Supply Chain", "Processes, Systems, Controls, Safety, Quality", "Other" ]
 			# },
 			rationale,
+			status,
 			revenueEnhancementOrCostReductionPotentialFirstYear,
 			revenueEnhancementOrCostReductionPotentialThirdYear,
 			revenueEnhancementOrCostReductionPotentialFifthYear,
@@ -130,7 +131,6 @@ inPersonWorkshopSettings = [
 			majorActionItemsDay31To90,
 			majorActionItemsBeyond90Days,
 			biggestObstaclesToSuccess,
-			status,
 		]
 	},
 	{
@@ -145,6 +145,7 @@ inPersonWorkshopSettings = [
 			# 	"options": [ "Sales & Margin Growth", "Productivity & Efficiency", "Cost Reduction", "Customer Satisfaction & Retention", "Organization, Culture, Leadership", "Accounting, Analytics, Finance, IT", "Operations & Supply Chain", "Processes, Systems, Controls, Safety, Quality", "Other" ]
 			# },
 			rationale,
+			status,
 			estimatedCostToImplement,
 			estimatedStartDate,
 			estimatedCompletionDate,
@@ -154,7 +155,6 @@ inPersonWorkshopSettings = [
 			majorActionItemsDay31To90,
 			majorActionItemsBeyond90Days,
 			biggestObstaclesToSuccess,
-			status,
 		]
 	}
 ]

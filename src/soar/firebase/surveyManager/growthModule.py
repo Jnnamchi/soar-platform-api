@@ -3,7 +3,7 @@ from firebase_admin import credentials
 from firebase_admin import firestore
 
 standardMatrixColumns = [
-	"Huge OPPORTUNITY", "Big OPPORTUNITY", "Modest OPPORTUNITY", "Huge NECESSITY", "Big NECESSITY", "Modest NECESSITY", "Don't Know", "NOT APPLICABLE OR RELEVANT"
+	"Huge OPPORTUNITY", "Big OPPORTUNITY", "Modest OPPORTUNITY", "NECESSITY", "LITTLE OR NO OPPORTUNITY OR NECESSITY", "Don't Know", "NOT APPLICABLE OR RELEVANT"
 ]
 
 growthModuleSurvey = {
@@ -461,7 +461,7 @@ growthModuleSurvey = {
   }
 }
 growthModuleUuid = 'weHvXJGF3i5qgNfjFAN1'
-cred = credentials.Certificate('/Users/jnnamchi/go/src/github.com/Jnnamchi/soar-platform-api/src/credentials.json')
+cred = credentials.Certificate('/Users/jnnamchi/go/src/github.com/Jnnamchi/soar-platform-api/app/firebase/credentials.json')
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()

@@ -28,11 +28,9 @@ def send_reminders():
 
         for row in reminders:
             data = row.to_dict()
-            print('Data: ', data)
             try:
                 templ = find_template(data['template'])
                 if templ is None:
-                    print('Template not found ...')
                     continue
                 for email in data['recipients']:
                     agent.send([email], templ)
